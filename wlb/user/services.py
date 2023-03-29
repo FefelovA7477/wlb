@@ -19,7 +19,11 @@ def get_user_or_none(*args, **kwargs) -> Optional[object]:
 
 def get_or_create_user(*args, **kwargs) -> object:
     try:
-        return cmn_services._get_object(User.objects, *args, **kwargs)
+        user = cmn_services._get_object(User.objects, *args, **kwargs)
+        if user.is_new:
+            user.is_new = False
+            user.save()
+        return user
     except ObjectDoesNotExist:
         return create_user_with_default_categories(*args, **kwargs)
     

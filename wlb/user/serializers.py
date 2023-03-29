@@ -8,4 +8,4 @@ class TgUserSerializer(serializers.ModelSerializer):
     categories = ShortCategorySerializer(many=True, required=False)
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'tg_chat_id', 'categories')
+        fields = ('username', 'is_new', 'first_name', 'tg_chat_id', 'categories')

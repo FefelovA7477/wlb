@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-c)2p9@(zpdm11@0q_l7bv05g7!r7n!w-(j0j#b6wy22n5w-nwj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['64.225.108.76', 'localhost']
 
 
 # Application definition
@@ -83,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'wlb_database',
-        'USER': 'postgres',
-        'PASSWORD': '22044ssff',
+        'USER': 'wlb_user',
+        'PASSWORD': '23127890Es',
         'HOST': 'localhost',
         'PORT': '5432',
     }

@@ -13,3 +13,13 @@ class IsOwner(permissions.IsAuthenticated):
         return request.user \
                 and request.user.is_authenticated \
                 and request.user == obj.user
+    
+
+class IsAllowedToScoreCategory(permissions.BasePermission):
+    def has_permission(self, request, view):
+        try:
+            return request.user \
+                and request.user.is_authenticated \
+                and request.user == request.data.get('category').user
+        except Exception as e:
+            return False

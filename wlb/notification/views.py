@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import generics, mixins
@@ -21,16 +22,23 @@ class CRUDNotification(generics.GenericAPIView,
     serializer_class = NotificationSerializer
 
     def get_permissions(self):
+        perms = super().get_permissions()
         if self.request.method == 'POST':
-            return (permissions.IsAuthenticated,)
-        return (custom_permissions.IsOwner,)
+            perms.append(permissions.IsAuthenticated())
+            return perms
+        perms.append(custom_permissions.IsOwner())
+        return perms
 
     def get_object(self):
-        return notify_services.temp_get_notification(user=self.request.user)
+        try:
+            return notify_services.temp_get_notification(user=self.request.user)
+        except ObjectDoesNotExist:
+            return None
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context.update({'user': self.request.user})
+        return context
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)

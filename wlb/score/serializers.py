@@ -13,32 +13,32 @@ class ScoreShortSerializer(serializers.ModelSerializer):
 
 
 class ScoreSerializer(serializers.ModelSerializer):
-    category_id = serializers.IntegerField()
-
     class Meta:
         model = Score
-        fields = ('category_id', 'score', 'date')
+        fields = ('id', 'category', 'score', 'date')
         extra_kwargs = {
             'date': {'required': False},
             'score': {'required': True},
-            'category_id': {'required': True},
+            'category': {'required': True},
+            'id': {'read_only': True}
         }
-
-    def validate(self, attrs):
-        try:
-            category_services.get_category(id=attrs['category_id'])
-        except ObjectDoesNotExist:
-            raise serializers.ValidationError(f'No category instance with provided id. {id}')
-        except KeyError:
-            raise serializers.ValidationError(f'Wrong provided structure.')
-        except Exception as e:
-            raise serializers.ValidationError(e)
-        return super().validate(attrs)
         
     def create(self, validated_data):
-        category_object = category_services.get_category(id=validated_data['category_id'])
+        category_object = validated_data['category']
+        user = self.context.get('user', None)
+        if user != category_object.user:
+            raise serializers.ValidationError(f'User has no permissions to create score in this category!')
         score = score_services.create_score_object(
             score=validated_data['score'],
             category=category_object
         )
         return score
+    
+    def update(self, instance, validated_data):
+        try:
+            score = validated_data['score']
+            instance.score = score
+            instance.save()
+            return instance
+        except Exception as e:
+            return instance
