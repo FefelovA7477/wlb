@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-c)2p9@(zpdm11@0q_l7bv05g7!r7n!w-(j0j#b6wy22n5w-nwj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['64.225.108.76', 'localhost', 'wlb.styleru.org']
+ALLOWED_HOSTS = ['77.232.129.23', 'localhost', 'wlb.zarya.digital']
 
 
 # Application definition
