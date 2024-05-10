@@ -16,7 +16,7 @@ class Score(models.Model):
     )
     category = models.ForeignKey(
         Category,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         related_name='scores'
     )
     date = models.DateField(default=get_today)

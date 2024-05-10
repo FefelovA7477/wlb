@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework import generics, mixins
 from rest_framework import permissions
 
-import wlb.permissions as custom_permissions
 from .serializers import NotificationSerializer
 from . import services as notify_services
 
@@ -26,7 +25,7 @@ class CRUDNotification(generics.GenericAPIView,
         if self.request.method == 'POST':
             perms.append(permissions.IsAuthenticated())
             return perms
-        perms.append(custom_permissions.IsOwner())
+        # perms.append(custom_permissions.IsOwner())
         return perms
 
     def get_object(self):
