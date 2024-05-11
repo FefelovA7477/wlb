@@ -8,7 +8,7 @@ from .models import Score
 class ScoreShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Score
-        fields = ('score', 'date')
+        fields = ('id', 'score', 'date')
 
 
 class ScoreSerializer(serializers.ModelSerializer):

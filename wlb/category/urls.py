@@ -1,11 +1,7 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-from .views import RetrieveUpdateDestroyCategory, ListCreateCategory
+from .views import CategoryViewset
 
-
-urlpatterns = [
-    path(r'', ListCreateCategory.as_view(), name='List & create category'),
-    path(r'<int:id>', 
-         RetrieveUpdateDestroyCategory.as_view(), 
-         name='Retrieve & update & destroy category'),
-]
+router = DefaultRouter()
+router.register(r'category', CategoryViewset, basename='category')
+urlpatterns = router.urls

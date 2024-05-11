@@ -32,6 +32,8 @@ class Category(models.Model):
         cloned_obj = self
         cloned_obj.pk = None
         cloned_obj._state.adding = True
+        if cloned_obj.is_default:
+            cloned_obj.is_default = False
         cloned_obj.save()
         return cloned_obj
 
