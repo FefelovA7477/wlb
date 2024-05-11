@@ -1,8 +1,7 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-from .views import RetrieveUser
+from .views import CreateRetrieveUser
 
-
-urlpatterns = [
-    path(r'', RetrieveUser.as_view(), name='Retrieve user'),
-]
+router = DefaultRouter()
+router.register(r'user', CreateRetrieveUser, basename='user')
+urlpatterns = router.urls

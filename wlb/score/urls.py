@@ -1,11 +1,7 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-from .views import ListCreateScore, RetrieveUpdateDestroyScore
+from .views import ScoreViewset
 
-
-urlpatterns = [
-    path(r'', ListCreateScore.as_view(), name='List & create score'),
-    path(r'<int:id>/', 
-         RetrieveUpdateDestroyScore.as_view(), 
-         name='Retrieve & update & destroy score'),
-]
+router = DefaultRouter()
+router.register(r'score', ScoreViewset, basename='score')
+urlpatterns = router.urls

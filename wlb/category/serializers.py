@@ -5,37 +5,32 @@ from .models import Category
 from . import services as category_services
 from score.serializers import ScoreSerializer
 from score import services as score_services
+from backend.services.cmn_services import filter_objects
 
 class CategorySerializer(serializers.ModelSerializer):
     scores = serializers.SerializerMethodField(read_only=True)
 
     def get_scores(self, obj):
         curr_time = timezone.now()
-        scores = score_services.filter_scores(
-            category=obj,
+        scores = filter_objects(
+            objects=obj.scores,
             date__lte=curr_time,
             date__gte=curr_time-timezone.timedelta(days=7)
         )
         serializer = ScoreSerializer(instance=scores, many=True)
-        # if serializer.is_valid():
         return serializer.data
-        # raise serializers.ValidationError('Some problems with serializing scores.')
 
     class Meta:
         model = Category
         fields = ('id', 'name', 'description', 'is_active', 'scores')
         extra_kwargs = {
             'description': {'required': False},
-            'id': {'read_only': True}
+            'id': {'read_only': True},
+            'scores': {'read_only': True}
         }
 
-    def validate(self, attrs):
-        if self.context.get('user', None) is None:
-            raise serializers.ValidationError('No tg_user instance.')
-        return super().validate(attrs)
-
     def create(self, validated_data):
-        user = self.context.get('user')
+        user =  self.context['request'].user
         category = category_services.create_category(user=user, **validated_data)
         return category
 
