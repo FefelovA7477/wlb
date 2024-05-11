@@ -18,7 +18,7 @@ def create_default_categories() -> List[Category]:
 
 
 def filter_categories(**kwrags):
-    return cmn_services.filter_objects(Category.objects, **kwrags)
+    return cmn_services.filter_objects(manager, **kwrags)
 
 
 def set_category_activity(category: Category, state: bool) -> None:

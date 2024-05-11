@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'category',
     'score',
     'notification',
+    'stats',
 ]
 
 MIDDLEWARE = [
