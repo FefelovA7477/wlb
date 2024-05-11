@@ -9,7 +9,7 @@ from .services import create_user
 User = get_user_model()
 
 class TgUserSerializer(serializers.ModelSerializer):
-    categories = ShortCategorySerializer(many=True, read_only=False)
+    categories = ShortCategorySerializer(many=True, read_only=True)
     metric = MetricSerializer(read_only=True)
 
     class Meta:

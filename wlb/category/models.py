@@ -15,7 +15,7 @@ class CategoryManager(models.Manager):
 class Category(models.Model):
     name = models.CharField(max_length=128)
     priority = models.IntegerField(default=1)
-    description = models.TextField(default='')
+    description = models.TextField(default='', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_default = models.BooleanField(default=False)
     user = models.ForeignKey(

@@ -10,11 +10,6 @@ class CreateRetrieveUser(mixins.CreateModelMixin,
                          viewsets.GenericViewSet):
     serializer_class = TgUserSerializer
 
-    def get_authenticators(self):
-        if self.request.method == 'POST':
-            self.authentication_classes = []
-        return super().get_authenticators()
-
     def get_permissions(self):
         if self.request.method == 'POST':
             self.permission_classes = [TgOnlyPermissionClass,]

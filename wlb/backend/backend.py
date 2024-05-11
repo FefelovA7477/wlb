@@ -13,7 +13,9 @@ def get_user_by_chat_id(tg_chat_id: str) -> Optional[object]:
 
 class TgChatIdAuthentication(BaseAuthentication):
     def authenticate(self, request) -> Optional[Tuple[object, None]]:
-        tg_chat_id = request.META.get('HTTP_TG_CHAT_ID', '')
+        tg_chat_id = request.META.get('HTTP_TG_CHAT_ID', None)
+        if tg_chat_id is None:
+            return None
         user = get_user_by_chat_id(tg_chat_id=tg_chat_id)
         if user is None:
             raise AuthenticationFailed('User with provided chat_id doesnt exists')

@@ -24,5 +24,5 @@ urlpatterns = [
     path(api_v_url, include('score.urls')),
     path(api_v_url, include('category.urls')),
     path(api_v_url + 'notification/', include('notification.urls')),
-    path(api_v_url + 'metric/', include('stats.urls')),
+    path(api_v_url + 'onboarding_stat/', include('stats.urls')),
 ]
