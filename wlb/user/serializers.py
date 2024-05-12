@@ -15,6 +15,7 @@ class TgUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('is_new', 'first_name', 'tg_chat_id', 'categories', 'metric')
+        extra_kwargs = {'first_name': {'required': False}}
 
     def create(self, validated_data):
         username = validated_data['tg_chat_id']

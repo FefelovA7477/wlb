@@ -4,6 +4,18 @@ from typing import List
 
 User = get_user_model()
 
+COLOR_CHOICES = (
+    ('#45714e', 'green'),
+    ('#5e7e66', 'dark-green'),
+    ('#d76e16', 'orange'),
+    ('#0a093f', 'dark-blue'),
+    ('#63a1af', 'biruzoviy'),
+    ('#9b2226', 'red'),
+    ('#9c52f5', 'violet'),
+    ('#fdb917', 'yellow'),
+    ('#552222', 'govno-color'),
+)
+
 
 class CategoryManager(models.Manager):
     def clone_default_categories(self) -> List[object | None]:
@@ -18,6 +30,11 @@ class Category(models.Model):
     description = models.TextField(default='', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_default = models.BooleanField(default=False)
+    color = models.CharField(max_length=7, 
+                             choices=COLOR_CHOICES, 
+                             blank=True, 
+                             null=True, 
+                             default=None)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
