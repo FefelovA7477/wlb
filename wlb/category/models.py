@@ -14,6 +14,7 @@ COLOR_CHOICES = (
     ('#9c52f5', 'violet'),
     ('#fdb917', 'yellow'),
     ('#552222', 'govno-color'),
+    ('#32CD32', 'light-green'),
 )
 
 

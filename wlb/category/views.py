@@ -12,7 +12,7 @@ class CategoryViewset(viewsets.ModelViewSet):
     permission_classes = [IsOwner, TgOnlyPermissionClass]
 
     def get_queryset(self):
-        return category_services.filter_categories(user=self.request.user)
+        return category_services.filter_categories(user=self.request.user).order_by('id')
 
 
 # Create your views here.

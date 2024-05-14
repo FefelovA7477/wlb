@@ -20,14 +20,6 @@ class CRUDNotification(generics.GenericAPIView,
     
     serializer_class = NotificationSerializer
 
-    def get_permissions(self):
-        perms = super().get_permissions()
-        if self.request.method == 'POST':
-            perms.append(permissions.IsAuthenticated())
-            return perms
-        # perms.append(custom_permissions.IsOwner())
-        return perms
-
     def get_object(self):
         try:
             return notify_services.temp_get_notification(user=self.request.user)
