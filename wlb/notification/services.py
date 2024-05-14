@@ -20,7 +20,7 @@ def notify() -> Tuple[List[object], List[object]]:
     notified_users, unnotified_users = [], []
     for user in users:
         try:
-            # _notify_user(user=user)
+            _notify_user(user=user)
             notified_users.append(user)
         except HTTPError:
             unnotified_users.append(user)
