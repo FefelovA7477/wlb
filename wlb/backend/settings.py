@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'score',
     'notification',
     'stats',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
@@ -121,9 +122,9 @@ DATABASES = {
 # }
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_RENDERER_CLASSES': (
-    #     'rest_framework.renderers.JSONRenderer',
-    # ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
         'backend.permissions.TgOnlyPermissionClass',
@@ -173,9 +174,19 @@ TG_AUTH_KEY = os.getenv('TG_AUTH_KEY')
 
 STATIC_URL = 'static/'
 
+# CRON
+
+CRON_CLASSES = [
+    'notification.jobs.Notification',
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
+
+# TG #
+
+TG_BOT_TOKEN = os.getenv('TG_BOT_TOKEN')

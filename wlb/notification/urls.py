@@ -1,9 +1,7 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-from .views import CRUDNotification
+from .views import NotificationViewset
 
-urlpatterns = [
-    path(r'', 
-         CRUDNotification.as_view(), 
-         name='Actually CRUD. *All cuz of singletone'),
-]
+router = DefaultRouter()
+router.register(r'notification', NotificationViewset, basename='notification')
+urlpatterns = router.urls

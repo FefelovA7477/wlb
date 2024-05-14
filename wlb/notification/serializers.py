@@ -9,11 +9,6 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         fields = ('time', )
 
-    def validate(self, attrs):
-        if self.context.get('user', None) is None:
-            raise serializers.ValidationError('No user instance provided.')
-        return super().validate(attrs)
-
     def create(self, validated_data):
-        user = self.context.get('user')
-        return notify_services.temp_get_or_create_notification(user=user, **validated_data)
+        user = self.context['request'].user
+        return notify_services.create_notification(user=user, **validated_data)

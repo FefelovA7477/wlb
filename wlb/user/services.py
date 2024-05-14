@@ -1,12 +1,17 @@
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
-from typing import Optional
+from django.db.models import QuerySet
+from typing import List
 
 import category.services as category_services
 from stats.services import create_blank_metric
 from backend.services import cmn_services
 
 User = get_user_model()
+
+def filter_users(**kwargs) -> QuerySet | List[object]:
+    return cmn_services.filter_objects(User.objects, **kwargs)
+
 
 def get_user(**kwargs) -> object:
     return cmn_services.get_object(User.objects, **kwargs)

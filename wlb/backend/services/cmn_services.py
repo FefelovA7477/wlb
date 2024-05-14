@@ -2,9 +2,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from typing import Union, List, Optional
 from django.db.models import QuerySet
 
-def get_object(objects, *args, **kwargs) -> object:
+def get_object(objects, **kwargs) -> object:
     try:
-        return objects.get(*args, **kwargs)
+        return objects.get(**kwargs)
     except ObjectDoesNotExist:
         raise
 
