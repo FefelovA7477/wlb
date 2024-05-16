@@ -1,7 +1,7 @@
 from requests.exceptions import HTTPError
 from django.db.models import QuerySet
 from django.utils import timezone
-from typing import List, Any, Tuple
+from typing import List, Tuple
 
 from backend.services import cmn_services
 from tg.senders import send_notification_tg
@@ -9,7 +9,6 @@ from user.services import filter_users
 from .models import Notification
 
 manager = Notification.objects
-
 
 def notify() -> Tuple[List[object], List[object]]:
     """
@@ -33,7 +32,6 @@ def _notify_user(user: object) -> None:
 
 def _get_users_for_notification() -> QuerySet | List[Notification]:
     current_time = timezone.now()
-    current_time = timezone.datetime(2024, 11, 5, 14)
     delta = timezone.timedelta(minutes=1)
     left_time_boundary, right_time_boundary = current_time.time(), (current_time + delta).time()
     users = filter_users(notifications__time__gte=left_time_boundary,

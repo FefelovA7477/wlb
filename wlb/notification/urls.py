@@ -1,7 +1,7 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework.urls import path
 
-from .views import NotificationViewset
+from .views import NotificationCreateRetreiveUpdate
 
-router = DefaultRouter()
-router.register(r'notification', NotificationViewset, basename='notification')
-urlpatterns = router.urls
+urlpatterns = [
+    path(r'', NotificationCreateRetreiveUpdate.as_view(), name='Create Retreive Update Notification')
+]

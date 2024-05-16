@@ -1,7 +1,7 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework.urls import path
 
-from .views import ScoreViewset
+from .views import ScoreCRUD
 
-router = DefaultRouter()
-router.register(r'score', ScoreViewset, basename='score')
-urlpatterns = router.urls
+urlpatterns = [
+    path(r'', ScoreCRUD.as_view(), name='Score CRUD')
+]
