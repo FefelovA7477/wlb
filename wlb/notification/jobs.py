@@ -11,3 +11,4 @@ class Notification(CronJobBase):
 
     def do(self):
         _, user_with_failed_notification = notify() # нужно добавить логирование
+        return user_with_failed_notification

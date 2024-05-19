@@ -15,21 +15,19 @@ def send_notification_tg(chat_id: int | str) -> None:
 
 def _get_notiifcation_keyboard() -> Dict[str, Any]:
     return {
-        'reply_markup': {
-            'inline_keyboard':[[{
-                "text": NOTIFICATION_BTN_TEXT, 
-                "callback_data": "start_save_scores"
-            }]]
-        }
+        'inline_keyboard':[[{
+            "text": NOTIFICATION_BTN_TEXT, 
+            "callback_data": "AskScores"
+        }]]
     }
 
 
-def send_msg_tg(chat_id: int | str, text: str, keyboard: Dict[str, Any] = None) -> None:
+def send_msg_tg(chat_id: int | str, text: str, keyboard: Dict[str, Any] = {}) -> None:
     url = f'https://api.telegram.org/bot{TG_BOT_TOKEN}/sendMessage'
     data = {
         'chat_id': chat_id,
         'text': text,
-        'keyboard': keyboard
+        'reply_markup': keyboard
     }
     response = requests.post(url=url, json=data)
     if not response.ok:

@@ -27,15 +27,15 @@ def notify() -> Tuple[List[object], List[object]]:
 
 
 def _notify_user(user: object) -> None:
-    send_notification_tg(chat_id=user.chat_id)
+    send_notification_tg(chat_id=user.tg_chat_id)
     
 
 def _get_users_for_notification() -> QuerySet | List[Notification]:
     current_time = timezone.now()
     delta = timezone.timedelta(minutes=1)
     left_time_boundary, right_time_boundary = current_time.time(), (current_time + delta).time()
-    users = filter_users(notifications__time__gte=left_time_boundary,
-                         notifications__time__lte=right_time_boundary)\
+    users = filter_users(notification__time__gte=left_time_boundary,
+                         notification__time__lte=right_time_boundary)\
                             .distinct()
     return users
 
