@@ -10,7 +10,10 @@ def get_category(**kwargs) -> Category:
 
 
 def create_category(**kwargs) -> Category:
-    return cmn_services.create_object(manager, **kwargs)
+    category_instance = cmn_services.create_object(manager, **kwargs)
+    if category_instance.color is None:
+        category_instance.set_random_color()
+    return category_instance
 
 
 def create_default_categories() -> List[Category]:

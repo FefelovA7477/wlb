@@ -11,7 +11,7 @@ def create_prod_category(apps, schema_editor):
         is_active=True,
         is_default=True,
         user=None,
-        color='#45714e'
+        color='#32CD32'
     )
 
 class Migration(migrations.Migration):

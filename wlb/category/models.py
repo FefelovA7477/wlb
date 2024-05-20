@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 from django.contrib.auth import get_user_model
 from typing import List
@@ -5,17 +7,15 @@ from typing import List
 User = get_user_model()
 
 COLOR_CHOICES = (
-    ('#45714e', 'green'),
-    ('#5e7e66', 'dark-green'),
-    ('#d76e16', 'orange'),
-    ('#0a093f', 'dark-blue'),
-    ('#63a1af', 'biruzoviy'),
     ('#9b2226', 'red'),
     ('#9c52f5', 'violet'),
     ('#fdb917', 'yellow'),
     ('#552222', 'govno-color'),
-    ('#32CD32', 'light-green'),
 )
+
+def get_random_color() -> str:
+    color = '#' + "%06x" % random.randint(0, 0xFFFFFF)
+    return color
 
 
 class CategoryManager(models.Manager):
@@ -46,7 +46,22 @@ class Category(models.Model):
 
     objects = CategoryManager()
 
-    def copy(self):
+    def set_random_color(self) -> None:
+        """
+        !!!WARNING!!!
+          Temporary method for setting color. 
+          self.user instance might not be null
+        """
+        if self.user:
+            custom_categories_amount = len(self.user.categories.all()) - 5
+            colors_amount = len(COLOR_CHOICES)
+            if colors_amount >= custom_categories_amount:
+                self.color = COLOR_CHOICES[custom_categories_amount-1][0]
+            else:
+                self.color = get_random_color()
+            self.save()
+
+    def copy(self) -> object:
         cloned_obj = self
         cloned_obj.pk = None
         cloned_obj._state.adding = True
