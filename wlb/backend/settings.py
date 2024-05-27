@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'score',
     'notification',
     'stats',
-    'django_cron'
+    'django_cron',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
