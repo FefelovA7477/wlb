@@ -134,6 +134,31 @@ REST_FRAMEWORK = {
     )
 }
 
+# Logging
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "custom_formatter": {
+            "()": "backend.logging_formatters.LoggingFormatter"
+        }
+    },
+    "handlers": {
+        "info_and_above": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "../logs/server.log",
+            "formatter": "custom_formatter",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["info_and_above"],
+            "level": "INFO"
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
